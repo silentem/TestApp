@@ -3,8 +3,9 @@ package com.whaletail.uklon.test.mvp.posts
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.whaletail.uklon.test.R
+import com.whaletail.uklon.test.util.UklonTestActivity
 
-class PostsActivity : AppCompatActivity() {
+class PostsActivity : UklonTestActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
