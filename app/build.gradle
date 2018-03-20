@@ -4,6 +4,8 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'kotlin-kapt'
+
 android {
     compileSdkVersion 27
     defaultConfig {
@@ -16,6 +18,7 @@ android {
     }
     buildTypes {
         release {
+            buildConfigField "String", "BASE_URL", "https://jsonplaceholder.typicode.com/"
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -62,5 +65,12 @@ dependencies {
     // https://mvnrepository.com/artifact/io.reactivex.rxjava2/rxjava
     compile group: 'io.reactivex.rxjava2', name: 'rxjava', version: '2.0.1'
 
-
+}
+kapt {
+    generateStubs = true
+}
+kotlin {
+    experimental {
+        coroutines "enable"
+    }
 }
