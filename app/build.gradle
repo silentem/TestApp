@@ -23,6 +23,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    packagingOptions {
+        exclude 'META-INF/rxjava.properties'
+    }
 }
 
 dependencies {
@@ -50,9 +53,10 @@ dependencies {
     //for recycler view
     compile "com.android.support:design:27.1.0"
     //Dagger 2 dependencies
-    compile "com.google.dagger:dagger:2.11"
-    kapt "com.google.dagger:dagger-compiler:2.11"
-    provided 'org.glassfish:javax.annotation:10.0-b28'
+    compile 'com.google.dagger:dagger:2.13'
+    kapt 'com.google.dagger:dagger-compiler:2.13'
+    kapt 'com.google.dagger:dagger-android-processor:2.13'
+    compile 'com.google.dagger:dagger-android-support:2.13'
     // retrofit
     compile "com.squareup.retrofit2:retrofit:2.3.0"
     compile "com.squareup.retrofit2:converter-gson:2.3.0"
