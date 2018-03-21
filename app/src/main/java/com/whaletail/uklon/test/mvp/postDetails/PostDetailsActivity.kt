@@ -32,6 +32,6 @@ class PostDetailsActivity : UklonTestActivity(), PostDetailsView {
     }
 
     override fun showUser(user: User) {
-        uv_post_details.user = user
+        adapter.user = user
     }
 }
