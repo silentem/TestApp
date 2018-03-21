@@ -12,7 +12,7 @@ import retrofit2.http.Path
 
 interface CommentsAPI {
 
-    @GET("/comments")
+    @GET("comments")
     fun getComments(): Observable<List<Comment>>
 
     @GET("post/{id}/comments")
