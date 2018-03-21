@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="post_holder_p">10dp</dimen>
+    <dimen name="post_holder_title_ts">15sp</dimen>
+    <dimen name="post_holder_body_mt">5dp</dimen>
+</resources>
