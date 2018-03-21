@@ -14,7 +14,7 @@ interface CommentsAPI {
     @GET("/comments")
     fun getComments(): Call<List<Comment>>
 
-    @GET("/post/{id}/comments")
+    @GET("post/{id}/comments")
     fun getCommentsByPost(@Path("id") id: Int): Call<List<Comment>>
 
 }

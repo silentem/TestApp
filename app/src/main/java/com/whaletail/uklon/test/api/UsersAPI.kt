@@ -11,9 +11,9 @@ import retrofit2.http.Path
 
 interface UsersAPI {
 
-    @GET("/users")
+    @GET("users")
     fun getUsers(): Call<List<User>>
 
-    @GET("/users/{id}")
+    @GET("users/{id}")
     fun getUsers(@Path("id") id: Int): Call<List<User>>
 }

@@ -17,8 +17,11 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
+        debug {
+            buildConfigField "String", "BASE_URL", "\"https://jsonplaceholder.typicode.com/\""
+        }
         release {
-            buildConfigField "String", "BASE_URL", "https://jsonplaceholder.typicode.com/"
+            buildConfigField "String", "BASE_URL", "\"https://jsonplaceholder.typicode.com/\""
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
