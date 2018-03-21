@@ -15,6 +15,8 @@ import javax.inject.Inject
 interface PostDetailsView {
     fun showPostComments(comments: List<Comment>)
     fun showUser(user: User)
+    fun showPostCommentsError()
+    fun showUserError()
 }
 
 interface PostDetailsPresenter {
@@ -28,13 +30,19 @@ class PostDetailsPresenterImpl @Inject constructor(private val postDetailsView: 
     override fun getUser() {
         userCall.observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe { v -> postDetailsView.showUser(v) }
+                .subscribe(
+                        { result -> postDetailsView.showUser(result) },
+                        { postDetailsView.showUserError() }
+                )
     }
 
     override fun getComments() {
         commentsCall.observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe { v -> postDetailsView.showPostComments(v) }
+                .subscribe(
+                        { v -> postDetailsView.showPostComments(v) },
+                        { postDetailsView.showPostCommentsError() }
+                )
     }
 
 

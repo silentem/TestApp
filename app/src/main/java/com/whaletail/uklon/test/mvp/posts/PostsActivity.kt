@@ -5,6 +5,7 @@ import com.whaletail.uklon.test.R
 import com.whaletail.uklon.test.model.Post
 import com.whaletail.uklon.test.util.UklonTestActivity
 import kotlinx.android.synthetic.main.activity_posts.*
+import org.jetbrains.anko.toast
 import javax.inject.Inject
 
 class PostsActivity : UklonTestActivity(), PostsActivityView {
@@ -21,6 +22,10 @@ class PostsActivity : UklonTestActivity(), PostsActivityView {
         rv_posts.adapter = postAdapter
         srl_posts.setOnRefreshListener { loadData() }
         loadData()
+    }
+
+    override fun showPostsError() {
+        toast(getString(R.string.posts_can_not_load_posts))
     }
 
     override fun showPosts(posts: List<Post>) {

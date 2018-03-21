@@ -13,6 +13,7 @@ import javax.inject.Inject
 
 interface PostsActivityView {
     fun showPosts(posts: List<Post>)
+    fun showPostsError()
 }
 
 interface PostsActivityPresenter {
@@ -25,9 +26,10 @@ class PostsActivityPresenterImpl @Inject constructor(private val postsActivityVi
     override fun getPosts() {
         postsCall.observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe {
-                    v -> postsActivityView.showPosts(v)
-                }
+                .subscribe(
+                        { v -> postsActivityView.showPosts(v) },
+                        { postsActivityView.showPostsError() }
+                )
     }
 
 }
