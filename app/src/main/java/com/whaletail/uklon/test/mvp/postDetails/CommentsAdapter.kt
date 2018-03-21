@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.whaletail.uklon.test.R
 import com.whaletail.uklon.test.model.Comment
+import kotlinx.android.synthetic.main.comment_holder_layout.view.*
 
 /**
  * @author whaletail on 21.03.18.
@@ -28,7 +29,9 @@ class CommentsAdapter : RecyclerView.Adapter<CommentsAdapter.CommentViewHolder>(
 
     inner class CommentViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
         fun bindComment(comment: Comment) {
-
+            itemView.tv_comment_body.text = comment.body
+            itemView.tv_comment_email.text = comment.email
+            itemView.tv_comment_name.text = comment.name
         }
     }
 }

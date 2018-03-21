@@ -3,4 +3,7 @@
     <dimen name="post_holder_p">10dp</dimen>
     <dimen name="post_holder_title_ts">17sp</dimen>
     <dimen name="post_holder_body_mt">5dp</dimen>
+    <dimen name="comment_holder_layout_ts">17sp</dimen>
+    <dimen name="comment_holder_layout_p">10dp</dimen>
+    <dimen name="comment_holder_layout_mt">5dp</dimen>
 </resources>
