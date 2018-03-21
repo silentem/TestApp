@@ -38,6 +38,8 @@ dependencies {
     //test espresso
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    androidTestCompile 'com.android.support.test.espresso:espresso-intents:3.0.1'
+    androidTestCompile 'com.android.support.test.espresso:espresso-contrib:3.0.1'
     //kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     implementation 'com.android.support:appcompat-v7:27.1.0'
@@ -71,6 +73,7 @@ dependencies {
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
     compile 'io.reactivex.rxjava2:rxjava:2.1.0'
     compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    compile "org.jetbrains.kotlin:kotlin-reflect:1.1.51"
 
 }
 kapt {

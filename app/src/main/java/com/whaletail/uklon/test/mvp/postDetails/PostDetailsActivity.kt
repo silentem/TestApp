@@ -10,6 +10,11 @@ import javax.inject.Inject
 
 class PostDetailsActivity : UklonTestActivity(), PostDetailsView {
 
+    companion object {
+        const val POST_ID: String = "post_id"
+        const val USER_ID: String = "user_id"
+    }
+
     @Inject
     lateinit var adapter: CommentsAdapter
     @Inject
@@ -23,9 +28,9 @@ class PostDetailsActivity : UklonTestActivity(), PostDetailsView {
         loadData()
     }
 
-    fun getPostId(): Int = intent.getIntExtra("post_id", 0)
+    fun getPostId(): Int = intent.getIntExtra(POST_ID, 0)
 
-    fun getUserId(): Int = intent.getIntExtra("user_id", 0)
+    fun getUserId(): Int = intent.getIntExtra(USER_ID, 0)
 
     override fun showPostComments(comments: List<Comment>) {
         adapter.comments = comments
