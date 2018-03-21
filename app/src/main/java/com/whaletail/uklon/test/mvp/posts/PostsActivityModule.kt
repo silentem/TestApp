@@ -15,7 +15,7 @@ import retrofit2.Retrofit
 class PostsActivityModule {
 
     @Provides
-    fun providePostsAdapter(postsActivity: PostsActivity): PostsAdapter = PostsAdapter()
+    fun providePostsAdapter(): PostsAdapter = PostsAdapter()
 
     @Provides
     fun providePostsActivityView(postsActivity: PostsActivity): PostsActivityView = postsActivity
