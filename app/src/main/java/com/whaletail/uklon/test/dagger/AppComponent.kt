@@ -4,6 +4,7 @@ import android.app.Application
 import com.whaletail.uklon.test.TestApp
 import com.whaletail.uklon.test.dagger.modules.ActivityBuilder
 import com.whaletail.uklon.test.dagger.modules.AppModule
+import com.whaletail.uklon.test.dagger.modules.NetworkModule
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjector
@@ -18,12 +19,15 @@ import dagger.android.support.DaggerApplication
 @Component(modules = arrayOf(
         AndroidSupportInjectionModule::class,
         AppModule::class,
+        NetworkModule::class,
         ActivityBuilder::class))
 interface AppComponent : AndroidInjector<DaggerApplication> {
     @Component.Builder
     interface Builder {
         @BindsInstance
         fun application(application: Application): Builder
+
+        fun networkModule(networkModule: NetworkModule) : Builder
 
         fun build(): AppComponent
     }
