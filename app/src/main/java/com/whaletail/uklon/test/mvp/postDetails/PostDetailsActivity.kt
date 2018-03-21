@@ -19,8 +19,8 @@ class PostDetailsActivity : UklonTestActivity(), PostDetailsView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_post_details)
         rv_comments.adapter = adapter
-        presenter.getComments()
-        presenter.getUser()
+        srl_post_details.setOnRefreshListener { loadData() }
+        loadData()
     }
 
     fun getPostId(): Int = intent.getIntExtra("post_id", 0)
@@ -29,9 +29,17 @@ class PostDetailsActivity : UklonTestActivity(), PostDetailsView {
 
     override fun showPostComments(comments: List<Comment>) {
         adapter.comments = comments
+        srl_post_details.isRefreshing = false
     }
 
     override fun showUser(user: User) {
         adapter.user = user
     }
+
+    private fun loadData() {
+        srl_post_details.isRefreshing = true
+        presenter.getComments()
+        presenter.getUser()
+    }
+
 }

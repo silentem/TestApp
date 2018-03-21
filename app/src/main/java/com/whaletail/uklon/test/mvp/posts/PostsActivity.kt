@@ -10,6 +10,7 @@ import javax.inject.Inject
 class PostsActivity : UklonTestActivity(), PostsActivityView {
     @Inject
     lateinit var postAdapter: PostsAdapter
+
     @Inject
     lateinit var presenter: PostsActivityPresenter
 
@@ -18,12 +19,18 @@ class PostsActivity : UklonTestActivity(), PostsActivityView {
         setContentView(R.layout.activity_posts)
 
         rv_posts.adapter = postAdapter
-
-        presenter.getPosts()
-
+        srl_posts.setOnRefreshListener { loadData() }
+        loadData()
     }
 
     override fun showPosts(posts: List<Post>) {
         postAdapter.posts = posts
+        srl_posts.isRefreshing = false
     }
+
+    private fun loadData() {
+        srl_posts.isRefreshing = true
+        presenter.getPosts()
+    }
+
 }
