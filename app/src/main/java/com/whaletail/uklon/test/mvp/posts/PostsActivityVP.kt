@@ -1,9 +1,9 @@
 package com.whaletail.uklon.test.mvp.posts
 
 import com.whaletail.uklon.test.model.Post
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 /**
@@ -12,34 +12,21 @@ import javax.inject.Inject
 
 interface PostsActivityView {
     fun showPosts(posts: List<Post>)
-    fun onCancel()
 }
 
 interface PostsActivityPresenter {
     fun getPosts()
-    fun cancel()
 }
 
-class PostsActivityPresenterImpl @Inject constructor(val postsActivityView: PostsActivityView,
-                                                     private val postsCall: Call<List<Post>>) : PostsActivityPresenter {
+class PostsActivityPresenterImpl @Inject constructor(private val postsActivityView: PostsActivityView,
+                                                     private val postsCall: Observable<List<Post>>) : PostsActivityPresenter {
 
     override fun getPosts() {
-        postsCall.enqueue(object : Callback<List<Post>> {
-            override fun onFailure(call: Call<List<Post>>?, t: Throwable?) {
-            }
-
-            override fun onResponse(call: Call<List<Post>>?, response: Response<List<Post>>?) {
-                if (response?.isSuccessful == true) {
-                    postsActivityView.showPosts(response.body() ?: emptyList())
+        postsCall.observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe { result ->
+                    postsActivityView.showPosts(result)
                 }
-            }
-        })
-    }
-
-    override fun cancel() {
-        if (!postsCall.isCanceled) {
-            postsCall.cancel()
-        }
     }
 
 }

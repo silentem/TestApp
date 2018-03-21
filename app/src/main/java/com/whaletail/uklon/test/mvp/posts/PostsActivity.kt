@@ -28,7 +28,4 @@ class PostsActivity : UklonTestActivity(), PostsActivityView {
     override fun showPosts(posts: List<Post>) {
         postAdapter.posts = posts
     }
-
-    override fun onCancel() {
-    }
 }

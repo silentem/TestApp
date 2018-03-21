@@ -1,6 +1,7 @@
 package com.whaletail.uklon.test.api
 
 import com.whaletail.uklon.test.model.Post
+import io.reactivex.Observable
 import retrofit2.Call
 import retrofit2.http.GET
 
@@ -10,5 +11,5 @@ import retrofit2.http.GET
 interface PostAPI {
 
     @GET("posts")
-    fun getPosts(): Call<List<Post>>
+    fun getPosts(): Observable<List<Post>>
 }
