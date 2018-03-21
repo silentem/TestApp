@@ -1,6 +1,7 @@
 package com.whaletail.uklon.test.api
 
 import com.whaletail.uklon.test.model.User
+import io.reactivex.Observable
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -12,8 +13,8 @@ import retrofit2.http.Path
 interface UsersAPI {
 
     @GET("users")
-    fun getUsers(): Call<List<User>>
+    fun getUsers(): Observable<List<User>>
 
     @GET("users/{id}")
-    fun getUsers(@Path("id") id: Int): Call<List<User>>
+    fun getUserById(@Path("id") id: Int): Observable<User>
 }

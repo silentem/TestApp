@@ -40,6 +40,7 @@ class PostsAdapter : RecyclerView.Adapter<PostsAdapter.PostHolder>() {
             itemView.setOnClickListener {
                 val intent = Intent(itemView.context, PostDetailsActivity::class.java)
                 intent.putExtra("post_id", post.id)
+                intent.putExtra("user_id", post.userId)
                 itemView.context.startActivity(intent)
             }
         }

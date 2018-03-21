@@ -1,6 +1,7 @@
 package com.whaletail.uklon.test.api
 
 import com.whaletail.uklon.test.model.Comment
+import io.reactivex.Observable
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -12,9 +13,9 @@ import retrofit2.http.Path
 interface CommentsAPI {
 
     @GET("/comments")
-    fun getComments(): Call<List<Comment>>
+    fun getComments(): Observable<List<Comment>>
 
     @GET("post/{id}/comments")
-    fun getCommentsByPost(@Path("id") id: Int): Call<List<Comment>>
+    fun getCommentsByPost(@Path("id") id: Int): Observable<List<Comment>>
 
 }
