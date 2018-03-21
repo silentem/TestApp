@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.post_holder_layout.view.*
  * @author whaletail on 21.03.18.
  */
 
-class PostsAdapter : RecyclerView.Adapter<PostsAdapter.PostHolder>() {
+class PostsAdapter(private val postsActivity: PostsActivity) : RecyclerView.Adapter<PostsAdapter.PostHolder>() {
 
     var posts: List<Post> = emptyList()
         set(value) {
@@ -42,6 +42,7 @@ class PostsAdapter : RecyclerView.Adapter<PostsAdapter.PostHolder>() {
                 intent.putExtra("post_id", post.id)
                 intent.putExtra("user_id", post.userId)
                 itemView.context.startActivity(intent)
+                postsActivity.overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left)
             }
         }
     }

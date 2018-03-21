@@ -8,4 +8,6 @@
     <dimen name="comment_holder_layout_mt">5dp</dimen>
     <dimen name="user_view_layout_p">5dp</dimen>
     <dimen name="user_view_layout_mt">5dp</dimen>
+
+    <integer name="slide_animation_duration">200</integer>
 </resources>

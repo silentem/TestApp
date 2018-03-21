@@ -36,6 +36,11 @@ class PostDetailsActivity : UklonTestActivity(), PostDetailsView {
         adapter.user = user
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right)
+    }
+
     private fun loadData() {
         srl_post_details.isRefreshing = true
         presenter.getComments()
