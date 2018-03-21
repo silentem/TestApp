@@ -6,6 +6,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context="com.whaletail.uklon.test.mvp.postDetails.PostDetailsActivity">
+    <com.whaletail.uklon.test.util.views.UserView
+        android:id="@+id/uv_post_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_comments"
         app:layoutManager="android.support.v7.widget.LinearLayoutManager"
