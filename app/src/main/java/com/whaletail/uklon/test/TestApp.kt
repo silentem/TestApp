@@ -13,7 +13,7 @@ class TestApp : DaggerApplication() {
     override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
         val component = DaggerAppComponent.builder()
                 .application(this)
-                .networkModule(NetworkModule(""))
+                .networkModule(NetworkModule("https://jsonplaceholder.typicode.com/"))
                 .build()
         component.inject(this)
         return component

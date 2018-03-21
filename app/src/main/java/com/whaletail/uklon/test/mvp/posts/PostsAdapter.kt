@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.post_holder_layout.view.*
 
 class PostsAdapter : RecyclerView.Adapter<PostsAdapter.PostHolder>() {
 
-    var posts: MutableList<Post> = mutableListOf()
+    var posts: List<Post> = emptyList()
         set(value) {
             field = value
             notifyDataSetChanged()
