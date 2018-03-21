@@ -46,5 +46,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/user_view_layout_mt"
         android:textColor="@color/colorBlack" />
+    <View
+        android:background="@drawable/adapters_item_divider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_h"/>
 
 </LinearLayout>

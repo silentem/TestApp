@@ -18,4 +18,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/post_holder_body_mt"
         android:textColor="@color/colorBlack" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_h"
+        android:background="@drawable/adapters_item_divider" />
 </LinearLayout>
