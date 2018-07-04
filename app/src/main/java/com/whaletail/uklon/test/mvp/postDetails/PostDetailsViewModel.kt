@@ -20,15 +20,13 @@ class PostDetailsViewModel @Inject constructor(private val commentsCall: Observa
 
     fun getUser() {
         state.value = State.LOADING
-        compositeDisposable.add(
-                call(userCall).subscribe(
+        call(network(userCall).subscribe(
                         { result -> showUserSuccess(result) },
                         { showUserError() }))
     }
 
     fun getComments() {
-        compositeDisposable.add(
-                call(commentsCall).subscribe(
+        call(network(commentsCall).subscribe(
                         { v -> showCommentsSuccess(v) },
                         { showCommentsError() }))
     }

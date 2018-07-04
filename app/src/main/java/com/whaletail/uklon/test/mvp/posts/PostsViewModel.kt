@@ -13,7 +13,7 @@ class PostsViewModel @Inject constructor(private val postsCall: Observable<List<
 
     fun getPosts() {
         state.value = State.LOADING
-        compositeDisposable.add(call(postsCall)
+        call(network(postsCall)
                 .subscribe(
                         { v -> showPostsSuccess(v) },
                         { showPostsError() }))

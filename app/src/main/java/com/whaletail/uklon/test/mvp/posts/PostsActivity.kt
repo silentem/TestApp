@@ -23,22 +23,22 @@ class PostsActivity : UklonTestActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_posts)
 
-//        viewModel = ViewModelProviders.of(this, viewModelFactory).get(PostsViewModel::class.java)
-//
-//        withViewModel<PostsViewModel>(viewModelFactory) {
-//            viewModel = this
-//
-//            observe(postsLiveData) {
-//                postAdapter.posts = it ?: emptyList()
-//            }
-//
-//            observe(state) {
-//                when (it) {
-//                    State.LOADED -> srl_posts.loaded()
-//                    State.LOADING -> srl_posts.loading()
-//                }
-//            }
-//        }
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(PostsViewModel::class.java)
+
+        withViewModel<PostsViewModel>(viewModelFactory) {
+            viewModel = this
+
+            observe(postsLiveData) {
+                postAdapter.posts = it ?: emptyList()
+            }
+
+            observe(state) {
+                when (it) {
+                    State.LOADED -> srl_posts.loaded()
+                    State.LOADING -> srl_posts.loading()
+                }
+            }
+        }
 
         rv_posts.adapter = postAdapter
         srl_posts.setOnRefreshListener { loadData() }
@@ -47,7 +47,7 @@ class PostsActivity : UklonTestActivity() {
 
 
     private fun loadData() {
-//        viewModel.getPosts()
+        viewModel.getPosts()
     }
 
 }
