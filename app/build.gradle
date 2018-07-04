@@ -38,42 +38,46 @@ dependencies {
     //test espresso
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-    androidTestCompile 'com.android.support.test.espresso:espresso-intents:3.0.1'
-    androidTestCompile 'com.android.support.test.espresso:espresso-contrib:3.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-intents:3.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-contrib:3.0.1'
+    // Optional -- Mockito framework
+    testImplementation 'org.mockito:mockito-core:1.10.19'
     //kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     implementation 'com.android.support:appcompat-v7:27.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     //room
-    compile "android.arch.persistence.room:runtime:1.0.0"
-    kapt "android.arch.persistence.room:compiler:1.0.0"
+    implementation "android.arch.persistence.room:runtime:1.1.1"
+    kapt "android.arch.persistence.room:compiler:1.1.1"
+    implementation "android.arch.lifecycle:extensions:1.1.1"
+    implementation "android.arch.lifecycle:viewmodel:1.1.1"
     //anko
-    compile "org.jetbrains.anko:anko-common:0.10.3"
+    implementation "org.jetbrains.anko:anko-common:0.10.3"
     // Anko Layouts
-    compile "org.jetbrains.anko:anko-sdk25:0.10.3"
-    compile "org.jetbrains.anko:anko-appcompat-v7:0.10.3"
+    implementation "org.jetbrains.anko:anko-sdk25:0.10.3"
+    implementation "org.jetbrains.anko:anko-appcompat-v7:0.10.3"
     // Coroutine listeners for Anko Layouts
-    compile "org.jetbrains.anko:anko-sdk25-coroutines:0.10.3"
-    compile "org.jetbrains.anko:anko-appcompat-v7-coroutines:0.10.3"
+    implementation "org.jetbrains.anko:anko-sdk25-coroutines:0.10.3"
+    implementation "org.jetbrains.anko:anko-appcompat-v7-coroutines:0.10.3"
     //for recycler view
-    compile "com.android.support:design:27.1.0"
+    implementation "com.android.support:design:27.1.0"
     //Dagger 2 dependencies
-    compile 'com.google.dagger:dagger:2.13'
-    kapt 'com.google.dagger:dagger-compiler:2.13'
-    kapt 'com.google.dagger:dagger-android-processor:2.13'
-    compile 'com.google.dagger:dagger-android-support:2.13'
+    implementation 'com.google.dagger:dagger:2.15'
+    kapt 'com.google.dagger:dagger-compiler:2.15'
+    kapt 'com.google.dagger:dagger-android-processor:2.15'
+    implementation 'com.google.dagger:dagger-android-support:2.15'
     // retrofit
-    compile "com.squareup.retrofit2:retrofit:2.3.0"
-    compile "com.squareup.retrofit2:converter-gson:2.3.0"
+    implementation "com.squareup.retrofit2:retrofit:2.3.0"
+    implementation "com.squareup.retrofit2:converter-gson:2.3.0"
     //ok http
-    compile 'com.squareup.okhttp3:logging-interceptor:3.8.1'
-    compile 'com.squareup.okhttp3:okhttp:3.8.1'
-    compile 'com.squareup.okhttp:okhttp:2.7.5'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.8.1'
+    implementation 'com.squareup.okhttp3:okhttp:3.8.1'
+    implementation 'com.squareup.okhttp:okhttp:2.7.5'
     //rx
-    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    compile 'io.reactivex.rxjava2:rxjava:2.1.0'
-    compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
-    compile "org.jetbrains.kotlin:kotlin-reflect:1.1.51"
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    implementation "org.jetbrains.kotlin:kotlin-reflect:1.1.51"
 
 }
 kapt {

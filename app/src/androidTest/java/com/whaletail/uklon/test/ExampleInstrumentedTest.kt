@@ -17,13 +17,16 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.whaletail.uklon.test.model.Post
 import com.whaletail.uklon.test.mvp.postDetails.PostDetailsActivity
+import com.whaletail.uklon.test.mvp.postDetails.PostDetailsViewModel
 import com.whaletail.uklon.test.mvp.posts.PostsActivity
 import com.whaletail.uklon.test.mvp.posts.PostsAdapter
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.allOf
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.Mockito.mock
 
 
 /**
@@ -43,6 +46,14 @@ class ExampleInstrumentedTest {
     @Rule
     var mActivityRule: IntentsTestRule<PostsActivity> = IntentsTestRule(
             PostsActivity::class.java)
+
+
+    private lateinit var viewModel: PostDetailsViewModel
+
+    @Before
+    fun init() {
+        viewModel = mock(PostDetailsViewModel::class.java)
+    }
 
     /**
      * Checks are POST_ID and USER_ID passed to PostDetailsActivity from PostsAdapter on click first element

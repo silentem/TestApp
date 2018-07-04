@@ -1,15 +1,20 @@
 package com.whaletail.uklon.test.mvp.postDetails
 
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProvider
+import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import com.whaletail.uklon.test.R
 import com.whaletail.uklon.test.model.Comment
 import com.whaletail.uklon.test.model.User
+import com.whaletail.uklon.test.startLoading
+import com.whaletail.uklon.test.stopLoading
 import com.whaletail.uklon.test.util.UklonTestActivity
 import kotlinx.android.synthetic.main.activity_post_details.*
 import org.jetbrains.anko.toast
 import javax.inject.Inject
 
-class PostDetailsActivity : UklonTestActivity(), PostDetailsView {
+class PostDetailsActivity : UklonTestActivity() {
     companion object {
 
         const val POST_ID: String = "post_id"
@@ -20,11 +25,44 @@ class PostDetailsActivity : UklonTestActivity(), PostDetailsView {
     lateinit var adapter: CommentsAdapter
 
     @Inject
-    lateinit var presenter: PostDetailsPresenter
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+    lateinit var viewModel: PostDetailsViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_post_details)
+
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(PostDetailsViewModel::class.java)
+
+        viewModel.state.observe(this, Observer {
+            when (it) {
+                State.COMMENTS_ERROR -> {
+                    srl_post_details.stopLoading()
+                    toast(getString(R.string.post_details_can_not_load_comments))
+                }
+                State.COMMENTS_SUCCESS -> {
+                    srl_post_details.stopLoading()
+                }
+                State.USER_ERROR -> {
+                    toast(getString(R.string.post_details_can_not_load_user))
+                }
+                State.LOADING -> {
+                    srl_post_details.startLoading()
+                }
+                State.USER_SUCCESS -> {
+
+                }
+            }
+        })
+
+        viewModel.commentsLiveData.observe(this, Observer {
+            adapter.comments = it ?: emptyList()
+        })
+
+        viewModel.userLiveData.observe(this, Observer {
+            adapter.user = it
+        })
+
         rv_comments.adapter = adapter
         srl_post_details.setOnRefreshListener { loadData() }
         loadData()
@@ -34,22 +72,6 @@ class PostDetailsActivity : UklonTestActivity(), PostDetailsView {
 
     fun getUserId(): Int = intent.getIntExtra(USER_ID, 0)
 
-    override fun showPostCommentsError() {
-        toast(getString(R.string.post_details_can_not_load_comments))
-    }
-
-    override fun showUserError() {
-        toast(getString(R.string.post_details_can_not_load_user))
-    }
-
-    override fun showPostComments(comments: List<Comment>) {
-        adapter.comments = comments
-        srl_post_details.isRefreshing = false
-    }
-
-    override fun showUser(user: User) {
-        adapter.user = user
-    }
 
     override fun onBackPressed() {
         super.onBackPressed()
@@ -57,9 +79,8 @@ class PostDetailsActivity : UklonTestActivity(), PostDetailsView {
     }
 
     private fun loadData() {
-        srl_post_details.isRefreshing = true
-        presenter.getComments()
-        presenter.getUser()
+        viewModel.getComments()
+        viewModel.getUser()
     }
 
 }
