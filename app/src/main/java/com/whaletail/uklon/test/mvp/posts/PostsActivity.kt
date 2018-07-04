@@ -1,41 +1,53 @@
 package com.whaletail.uklon.test.mvp.posts
 
+import android.arch.lifecycle.ViewModelProvider
+import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import com.whaletail.uklon.test.R
-import com.whaletail.uklon.test.model.Post
+import com.whaletail.uklon.test.*
+import com.whaletail.uklon.test.util.State
 import com.whaletail.uklon.test.util.UklonTestActivity
 import kotlinx.android.synthetic.main.activity_posts.*
-import org.jetbrains.anko.toast
 import javax.inject.Inject
 
-class PostsActivity : UklonTestActivity(), PostsActivityView {
+class PostsActivity : UklonTestActivity() {
     @Inject
     lateinit var postAdapter: PostsAdapter
 
+
     @Inject
-    lateinit var presenter: PostsActivityPresenter
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    lateinit var viewModel: PostsViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_posts)
+
+//        viewModel = ViewModelProviders.of(this, viewModelFactory).get(PostsViewModel::class.java)
+//
+//        withViewModel<PostsViewModel>(viewModelFactory) {
+//            viewModel = this
+//
+//            observe(postsLiveData) {
+//                postAdapter.posts = it ?: emptyList()
+//            }
+//
+//            observe(state) {
+//                when (it) {
+//                    State.LOADED -> srl_posts.loaded()
+//                    State.LOADING -> srl_posts.loading()
+//                }
+//            }
+//        }
 
         rv_posts.adapter = postAdapter
         srl_posts.setOnRefreshListener { loadData() }
         loadData()
     }
 
-    override fun showPostsError() {
-        toast(getString(R.string.posts_can_not_load_posts))
-    }
-
-    override fun showPosts(posts: List<Post>) {
-        postAdapter.posts = posts
-        srl_posts.isRefreshing = false
-    }
 
     private fun loadData() {
-        srl_posts.isRefreshing = true
-        presenter.getPosts()
+//        viewModel.getPosts()
     }
 
 }

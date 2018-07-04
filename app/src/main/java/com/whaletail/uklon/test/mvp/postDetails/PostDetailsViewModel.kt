@@ -4,6 +4,9 @@ import android.arch.lifecycle.MutableLiveData
 import com.whaletail.uklon.test.model.Comment
 import com.whaletail.uklon.test.model.User
 import com.whaletail.uklon.test.util.BaseViewModel
+import com.whaletail.uklon.test.util.Data
+import com.whaletail.uklon.test.util.DataState
+import com.whaletail.uklon.test.util.State
 import io.reactivex.Observable
 import javax.inject.Inject
 
@@ -11,25 +14,23 @@ class PostDetailsViewModel @Inject constructor(private val commentsCall: Observa
                                                private val userCall: Observable<User>) : BaseViewModel() {
 
 
-    val commentsLiveData: MutableLiveData<List<Comment>> = MutableLiveData()
+    val commentsLiveData: MutableLiveData<Data<List<Comment>>> = MutableLiveData()
 
     val userLiveData: MutableLiveData<User> = MutableLiveData()
 
-    val state: MutableLiveData<State> = MutableLiveData()
-
     fun getUser() {
         state.value = State.LOADING
-        call(userCall).subscribe(
-                { result -> showUserSuccess(result) },
-                { showUserError() }
-        )
+        compositeDisposable.add(
+                call(userCall).subscribe(
+                        { result -> showUserSuccess(result) },
+                        { showUserError() }))
     }
 
     fun getComments() {
-        call(commentsCall).subscribe(
-                { v -> showCommentsSuccess(v) },
-                { showCommentsError() }
-        )
+        compositeDisposable.add(
+                call(commentsCall).subscribe(
+                        { v -> showCommentsSuccess(v) },
+                        { showCommentsError() }))
     }
 
     private fun showUserSuccess(user: User) {
@@ -37,16 +38,17 @@ class PostDetailsViewModel @Inject constructor(private val commentsCall: Observa
     }
 
     private fun showUserError() {
-        state.value = State.USER_ERROR
+        state.value = State.LOADED
     }
 
     private fun showCommentsSuccess(comments: List<Comment>) {
-        state.value = State.COMMENTS_SUCCESS
-        commentsLiveData.value = comments
+        state.value = State.LOADED
+        commentsLiveData.value = Data(data = comments)
     }
 
     private fun showCommentsError() {
-        state.value = State.COMMENTS_ERROR
+        state.value = State.LOADED
+        commentsLiveData.value = Data(DataState.ERROR)
     }
 
 

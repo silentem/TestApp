@@ -11,7 +11,9 @@ import org.jetbrains.anko.AnkoLogger
 
 open class BaseViewModel : ViewModel(), AnkoLogger {
 
-    var compositeDisposable: CompositeDisposable = CompositeDisposable()
+    val state: MutableLiveData<State> = MutableLiveData()
+
+    val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     override fun onCleared() {
         super.onCleared()

@@ -19,13 +19,7 @@ class PostsActivityModule {
     fun providePostsAdapter(postsActivity: PostsActivity): PostsAdapter = PostsAdapter(postsActivity)
 
     @Provides
-    fun providePostsActivityView(postsActivity: PostsActivity): PostsActivityView = postsActivity
-
-    @Provides
     fun providePostsCall(retrofit: Retrofit): Observable<List<Post>> = retrofit.create(PostAPI::class.java).getPosts()
-
-    @Provides
-    fun providePostsActivityPresenter(postsActivityView: PostsActivityView, postsCall: Observable<List<Post>>): PostsActivityPresenter = PostsActivityPresenterImpl(postsActivityView, postsCall)
 
 
 }

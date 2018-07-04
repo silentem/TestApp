@@ -1,14 +1,10 @@
 package com.whaletail.uklon.test.mvp.postDetails
 
-import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
-import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import com.whaletail.uklon.test.R
-import com.whaletail.uklon.test.model.Comment
-import com.whaletail.uklon.test.model.User
-import com.whaletail.uklon.test.startLoading
-import com.whaletail.uklon.test.stopLoading
+import com.whaletail.uklon.test.*
+import com.whaletail.uklon.test.util.DataState
+import com.whaletail.uklon.test.util.State
 import com.whaletail.uklon.test.util.UklonTestActivity
 import kotlinx.android.synthetic.main.activity_post_details.*
 import org.jetbrains.anko.toast
@@ -32,36 +28,32 @@ class PostDetailsActivity : UklonTestActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_post_details)
 
-        viewModel = ViewModelProviders.of(this, viewModelFactory).get(PostDetailsViewModel::class.java)
-
-        viewModel.state.observe(this, Observer {
-            when (it) {
-                State.COMMENTS_ERROR -> {
-                    srl_post_details.stopLoading()
-                    toast(getString(R.string.post_details_can_not_load_comments))
-                }
-                State.COMMENTS_SUCCESS -> {
-                    srl_post_details.stopLoading()
-                }
-                State.USER_ERROR -> {
-                    toast(getString(R.string.post_details_can_not_load_user))
-                }
-                State.LOADING -> {
-                    srl_post_details.startLoading()
-                }
-                State.USER_SUCCESS -> {
-
+        withViewModel<PostDetailsViewModel>(viewModelFactory) {
+            viewModel = this
+            observe(state) {
+                when (it) {
+                    State.LOADED -> {
+                        srl_post_details.loaded()
+                    }
+                    State.LOADING -> {
+                        srl_post_details.loading()
+                    }
                 }
             }
-        })
-
-        viewModel.commentsLiveData.observe(this, Observer {
-            adapter.comments = it ?: emptyList()
-        })
-
-        viewModel.userLiveData.observe(this, Observer {
-            adapter.user = it
-        })
+            observe(commentsLiveData) {
+                when (it?.dataState) {
+                    DataState.SUCCESS -> {
+                        adapter.comments = it.data ?: emptyList()
+                    }
+                    DataState.ERROR -> {
+                        toast(getString(R.string.post_details_can_not_load_comments))
+                    }
+                }
+            }
+            observe(userLiveData) {
+                adapter.user = it
+            }
+        }
 
         rv_comments.adapter = adapter
         srl_post_details.setOnRefreshListener { loadData() }
