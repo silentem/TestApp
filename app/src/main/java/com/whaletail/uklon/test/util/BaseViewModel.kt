@@ -14,16 +14,13 @@ open class BaseViewModel : ViewModel(), AnkoLogger {
 
     val state: MutableLiveData<State> = MutableLiveData()
 
-    val compositeDisposable: CompositeDisposable = CompositeDisposable()
+    private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     override fun onCleared() {
         super.onCleared()
         compositeDisposable.clear()
     }
 
-    protected fun <T : Any> network(call: Observable<T>): Observable<T> =
-            call.observeOn(AndroidSchedulers.mainThread())
-                    .subscribeOn(Schedulers.io())
 
     protected fun call(disposable: Disposable) = compositeDisposable.add(disposable)
 

@@ -18,8 +18,4 @@ class PostsActivityModule {
     @Provides
     fun providePostsAdapter(postsActivity: PostsActivity): PostsAdapter = PostsAdapter(postsActivity)
 
-    @Provides
-    fun providePostsCall(retrofit: Retrofit): Observable<List<Post>> = retrofit.create(PostAPI::class.java).getPosts()
-
-
 }

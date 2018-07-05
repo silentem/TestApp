@@ -42,16 +42,29 @@ class PostDetailsActivity : UklonTestActivity() {
             }
             observe(commentsLiveData) {
                 when (it?.dataState) {
-                    DataState.SUCCESS -> {
+                    RegisterState.SUCCESS -> {
                         adapter.comments = it.data ?: emptyList()
                     }
-                    DataState.ERROR -> {
+                    RegisterState.ERROR -> {
                         toast(getString(R.string.post_details_can_not_load_comments))
+                    }
+                    RegisterState.WRONG_PASSWORD -> {
+
+                    }
+                    RegisterState.WRONG_EMAIL -> {
+
                     }
                 }
             }
             observe(userLiveData) {
-                adapter.user = it
+                when (it?.dataState) {
+                    DataState.SUCCESS -> {
+                        adapter.user = it.data
+                    }
+                    DataState.ERROR -> {
+                        toast("Error getting user")
+                    }
+                }
             }
         }
 
@@ -71,8 +84,8 @@ class PostDetailsActivity : UklonTestActivity() {
     }
 
     private fun loadData() {
-        viewModel.getComments()
-        viewModel.getUser()
+        viewModel.getComments(getPostId())
+        viewModel.getUser(getUserId())
     }
 
 }

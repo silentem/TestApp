@@ -3,6 +3,7 @@ package com.whaletail.uklon.test.mvp.posts
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.view.View
 import com.whaletail.uklon.test.*
 import com.whaletail.uklon.test.util.State
 import com.whaletail.uklon.test.util.UklonTestActivity
@@ -13,7 +14,6 @@ class PostsActivity : UklonTestActivity() {
     @Inject
     lateinit var postAdapter: PostsAdapter
 
-
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
@@ -22,8 +22,6 @@ class PostsActivity : UklonTestActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_posts)
-
-        viewModel = ViewModelProviders.of(this, viewModelFactory).get(PostsViewModel::class.java)
 
         withViewModel<PostsViewModel>(viewModelFactory) {
             viewModel = this
@@ -38,6 +36,7 @@ class PostsActivity : UklonTestActivity() {
                     State.LOADING -> srl_posts.loading()
                 }
             }
+
         }
 
         rv_posts.adapter = postAdapter
