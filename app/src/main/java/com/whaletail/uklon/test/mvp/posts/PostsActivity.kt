@@ -1,16 +1,14 @@
 package com.whaletail.uklon.test.mvp.posts
 
 import android.arch.lifecycle.ViewModelProvider
-import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.view.View
 import com.whaletail.uklon.test.*
 import com.whaletail.uklon.test.util.State
-import com.whaletail.uklon.test.util.UklonTestActivity
+import com.whaletail.uklon.test.util.BaseActivity
 import kotlinx.android.synthetic.main.activity_posts.*
 import javax.inject.Inject
 
-class PostsActivity : UklonTestActivity() {
+class PostsActivity : BaseActivity() {
     @Inject
     lateinit var postAdapter: PostsAdapter
 

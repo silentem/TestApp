@@ -5,12 +5,12 @@ import android.os.Bundle
 import com.whaletail.uklon.test.*
 import com.whaletail.uklon.test.util.DataState
 import com.whaletail.uklon.test.util.State
-import com.whaletail.uklon.test.util.UklonTestActivity
+import com.whaletail.uklon.test.util.BaseActivity
 import kotlinx.android.synthetic.main.activity_post_details.*
 import org.jetbrains.anko.toast
 import javax.inject.Inject
 
-class PostDetailsActivity : UklonTestActivity() {
+class PostDetailsActivity : BaseActivity() {
     companion object {
 
         const val POST_ID: String = "post_id"

@@ -8,6 +8,6 @@ import dagger.android.support.DaggerAppCompatActivity
  */
 
 @SuppressLint("Registered")
-open class UklonTestActivity : DaggerAppCompatActivity() {
+open class BaseActivity : DaggerAppCompatActivity() {
 
 }
