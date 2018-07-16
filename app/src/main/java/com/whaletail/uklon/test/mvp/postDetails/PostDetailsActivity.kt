@@ -12,7 +12,6 @@ import com.whaletail.uklon.test.mvp.updateService.UpdateService
 import com.whaletail.uklon.test.util.BaseActivity
 import com.whaletail.uklon.test.util.DataState
 import com.whaletail.uklon.test.util.State
-import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.activity_post_details.*
 import org.jetbrains.anko.toast
 import javax.inject.Inject
@@ -51,7 +50,6 @@ class PostDetailsActivity : BaseActivity() {
             }
 
         }
-        bindService(Intent(this, UpdateService::class.java), serviceConnection, Context.BIND_AUTO_CREATE)
 
         withViewModel<PostDetailsViewModel>(viewModelFactory) {
             viewModel = this
@@ -100,6 +98,16 @@ class PostDetailsActivity : BaseActivity() {
         rv_comments.adapter = adapter
         srl_post_details.setOnRefreshListener { loadData() }
         loadData()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        bindService(Intent(this, UpdateService::class.java), serviceConnection, Context.BIND_AUTO_CREATE)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        unbindService(serviceConnection)
     }
 
     fun getPostId(): Int = intent.getIntExtra(POST_ID, 0)
