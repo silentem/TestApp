@@ -1,5 +1,6 @@
 package com.whaletail.uklon.test.mvp.postDetails
 
+import android.content.Context
 import com.whaletail.uklon.test.api.CommentsAPI
 import com.whaletail.uklon.test.api.UsersAPI
 import com.whaletail.uklon.test.model.Comment

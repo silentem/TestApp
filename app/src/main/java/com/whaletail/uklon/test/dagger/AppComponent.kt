@@ -20,7 +20,8 @@ import dagger.android.support.DaggerApplication
         NetworkModule::class,
         ViewModelModule::class,
         ApiModule::class,
-        ActivityBuilder::class))
+        ActivityBuilder::class,
+        ServiceBuilder::class))
 interface AppComponent : AndroidInjector<DaggerApplication> {
     @Component.Builder
     interface Builder {

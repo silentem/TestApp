@@ -4,5 +4,6 @@ enum class RegisterState {
     WRONG_EMAIL,
     WRONG_PASSWORD,
     SUCCESS,
+    SUCCESS_FROM_SERVICE,
     ERROR
 }

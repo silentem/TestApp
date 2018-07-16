@@ -20,6 +20,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".mvp.postDetails.PostDetailsActivity" />
+
+        <service
+            android:name=".mvp.updateService.UpdateService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>

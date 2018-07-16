@@ -1,5 +1,7 @@
 package com.whaletail.uklon.test.mvp.postDetails
 
+import android.content.Context
+import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -7,13 +9,15 @@ import android.view.ViewGroup
 import com.whaletail.uklon.test.R
 import com.whaletail.uklon.test.model.Comment
 import com.whaletail.uklon.test.model.User
+import com.whaletail.uklon.test.mvp.updateService.UpdateService
 import kotlinx.android.synthetic.main.comment_holder_layout.view.*
 import kotlinx.android.synthetic.main.user_view_layout.view.*
+import javax.inject.Inject
 
 /**
  * @author whaletail on 21.03.18.
  */
-class CommentsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class CommentsAdapter @Inject constructor() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     val OFFSET: Int = 1
 

@@ -1,11 +1,18 @@
 package com.whaletail.uklon.test.mvp.postDetails
 
 import android.arch.lifecycle.ViewModelProvider
+import android.content.ComponentName
+import android.content.Context
+import android.content.Intent
+import android.content.ServiceConnection
 import android.os.Bundle
+import android.os.IBinder
 import com.whaletail.uklon.test.*
+import com.whaletail.uklon.test.mvp.updateService.UpdateService
+import com.whaletail.uklon.test.util.BaseActivity
 import com.whaletail.uklon.test.util.DataState
 import com.whaletail.uklon.test.util.State
-import com.whaletail.uklon.test.util.BaseActivity
+import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.activity_post_details.*
 import org.jetbrains.anko.toast
 import javax.inject.Inject
@@ -24,9 +31,27 @@ class PostDetailsActivity : BaseActivity() {
     lateinit var viewModelFactory: ViewModelProvider.Factory
     lateinit var viewModel: PostDetailsViewModel
 
+    lateinit var serviceConnection: ServiceConnection
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_post_details)
+
+
+        startService(Intent(this, UpdateService::class.java))
+
+        serviceConnection = object : ServiceConnection {
+            override fun onServiceDisconnected(p0: ComponentName?) {
+            }
+
+            override fun onServiceConnected(p0: ComponentName?, p1: IBinder?) {
+                p1 as UpdateService.UpdateServiceBinder
+                val service = p1.getService()
+                viewModel.observeCommentsUpdates(service.observeUpdates())
+            }
+
+        }
+        bindService(Intent(this, UpdateService::class.java), serviceConnection, Context.BIND_AUTO_CREATE)
 
         withViewModel<PostDetailsViewModel>(viewModelFactory) {
             viewModel = this
@@ -53,6 +78,10 @@ class PostDetailsActivity : BaseActivity() {
                     }
                     RegisterState.WRONG_EMAIL -> {
 
+                    }
+                    RegisterState.SUCCESS_FROM_SERVICE -> {
+                        toast("updated from service")
+                        adapter.comments = it.data ?: emptyList()
                     }
                 }
             }

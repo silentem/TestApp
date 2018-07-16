@@ -7,6 +7,8 @@ import com.whaletail.uklon.test.model.Comment
 import com.whaletail.uklon.test.model.User
 import com.whaletail.uklon.test.network
 import com.whaletail.uklon.test.util.*
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
 import javax.inject.Inject
 
 class PostDetailsViewModel @Inject constructor(private val commentsAPI: CommentsAPI,
@@ -34,6 +36,13 @@ class PostDetailsViewModel @Inject constructor(private val commentsAPI: Comments
                         { showCommentsError() }))
     }
 
+    fun observeCommentsUpdates(commentsObservable: Observable<List<Comment>>?) {
+
+        commentsObservable
+                ?.observeOn(AndroidSchedulers.mainThread())
+                ?.subscribe { comments -> showCommentsFromServiceSuccess(comments) }
+    }
+
     private fun showUserSuccess(user: User) {
         userLiveData.value = Data(data = user)
     }
@@ -46,6 +55,11 @@ class PostDetailsViewModel @Inject constructor(private val commentsAPI: Comments
     private fun showCommentsSuccess(comments: List<Comment>) {
         state.value = State.LOADED
         commentsLiveData.value = RawData(dataState = RegisterState.SUCCESS, data = comments)
+    }
+
+    private fun showCommentsFromServiceSuccess(comments: List<Comment>) {
+        state.value = State.LOADED
+        commentsLiveData.value = RawData(dataState = RegisterState.SUCCESS_FROM_SERVICE, data = comments)
     }
 
     private fun showCommentsError() {
